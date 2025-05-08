@@ -30,14 +30,17 @@ setup(props) {
   .tag-cloud h3 {
     border-bottom: 1px solid #eee;
     padding: 16px 8px;
-    color: #444;
+    color: #444; 
+   /* colour above was too feint so i changed to a darker colour */
+   /* color: rgb(21, 2, 2)   */
+
   }
   .tag-cloud div {
     display: inline-block;
     padding: 10px;
   }
   .tag-cloud a {
-    color: #ccc;
+    /* color: rgb(48, 29, 29); */
     text-decoration: none;
   }
   .tag-cloud a.router-link-active {

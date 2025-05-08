@@ -15,16 +15,17 @@
         <p>Hey there {{ user.displayName }}</p>
         <p class="email">Currently logged in as {{ user.email }}</p>
     </div>
-    <button @click="handleClick">Logout</button>
+    <button style="background-color:orange" @click="handleClick">Logout</button>
   </nav>
     </header>
   <!-- <img src="../assets/images/italy.jpg" alt="" style="width: 200px; height: 100px "> -->
+  <img src="../assets/images/italy.jpg" alt="image">
+
   <div id="image-container">
   <img src="../assets/images/FAMILY pexels-ario-stories-278509849-29801855.jpg" alt="Image 1">
   <img src="../assets/images/FAITH pexels-jibarofoto-2774570.jpg" alt="Image 2">
   <img src="../assets/images/SOCIETY pexels-detty-image-2148597567-30179960.jpg" alt="Image 3">
 </div>
-
   </template>
   
   <script>
@@ -100,6 +101,16 @@ header nav a {
   border: 1px solid #ddd; /* Optional: Adds a border to each image */
   border-radius: 5px; /* Optional: Rounds the corners of each image */
 }
+
+button {
+    text-decoration: none;
+    background: #5ae4ca;
+    color: white;
+    font-weight: bold;
+    border: 0;
+    border-radius: 20px;
+    padding: 10px 20px;
+  }
 
 
 

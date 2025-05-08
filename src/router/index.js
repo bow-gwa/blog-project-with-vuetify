@@ -5,12 +5,14 @@ import Create from "../views/Create.vue"
 import Tag from '@/views/Tag.vue'
 import Realtime from '@/views/RealTime.vue'
 import SignIn from '@/views/SignIn.vue'
+import Testing from '@/views/Testing.vue'
 import { projectAuth } from "@/firebase/config";
 
 const requireAuth = (to, from, next) => {
   let user = projectAuth.currentUser
   if (!user) {
-      next({ name: "SignIn" })
+      next({ path: "/" })
+      //next({ name: "SignIn" })
   } else {
       next()
   }
@@ -30,6 +32,12 @@ const routes = [
     path: "/",
     name: "SignIn",
     component: SignIn,
+    beforeEnter: requireNoAuth
+  },
+  {
+    path: "/testing",
+    name: "Testing",
+    component: Testing,
     beforeEnter: requireNoAuth
   },
   {

@@ -48,7 +48,10 @@ export default {
   .post h3::before {
     content: "";
     display: block;
-    width: 100%;
+    /* width: 100%; */ 
+    /* changed to the width below as suggested by cp to keep text from overflowing out of the orange background */
+    width: calc(100% + 40px); /* Adjust dynamically to fit text */
+    box-sizing: border-box; /* Prevent padding-related overflow */
     height: 100%;
     background: #ff8800;
     position: absolute;
@@ -56,6 +59,7 @@ export default {
     padding-right: 40px;
     left: -30px;
     transform: rotateZ(-1deg);
+    
   }
 
   /* Styling for delete button */
