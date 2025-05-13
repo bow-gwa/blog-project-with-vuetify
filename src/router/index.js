@@ -5,14 +5,13 @@ import Create from "../views/Create.vue"
 import Tag from '@/views/Tag.vue'
 import Realtime from '@/views/RealTime.vue'
 import SignIn from '@/views/SignIn.vue'
-import Testing from '@/views/Testing.vue'
+import VuetifySignin from '@/views/VuetifySignin.vue'
 import { projectAuth } from "@/firebase/config";
 
 const requireAuth = (to, from, next) => {
   let user = projectAuth.currentUser
   if (!user) {
-      next({ path: "/" })
-      //next({ name: "SignIn" })
+      next({ name: "VuetifySignin" })
   } else {
       next()
   }
@@ -28,30 +27,25 @@ const requireNoAuth = (to, from, next) => {
 }
 
 const routes = [
+  // {
+  //   path: "/Signin",
+  //   name: "SignIn",
+  //   component: SignIn,
+  //   beforeEnter: requireNoAuth
+  // },
+ 
   {
-    path: "/",
-    name: "SignIn",
-    component: SignIn,
-    beforeEnter: requireNoAuth
-  },
-  {
-    path: "/testing",
-    name: "Testing",
-    component: Testing,
-    beforeEnter: requireNoAuth
-  },
-  {
-    path: '/Home',
+    path: '/',
     name: 'Home',
     component: HomeView,
-    beforeEnter: requireAuth
+    //beforeEnter: requireNoAuth
   },
   {
     path: "/posts/:id",
     name: "Details",
     component: Details,
     props: true,
-    beforeEnter: requireAuth
+    beforeEnter: requireNoAuth
   },
   {
     path:"/create",
@@ -63,13 +57,19 @@ const routes = [
     path: "/tags/:tag",
     name: "Tag",
     component: Tag,
-    beforeEnter: requireAuth
+    beforeEnter: requireNoAuth
   },
   {
     path: "/realtime",
     name: "Realtime",
     component: Realtime,
     beforeEnter: requireAuth
+  },
+  {
+    path: "/VuetifySignin",
+    name: "VuetifySignin",
+    component: VuetifySignin,
+   // beforeEnter: requireNoAuth
   }
 ]
 

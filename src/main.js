@@ -14,6 +14,9 @@ import '@mdi/font/css/materialdesignicons.css'
 // import firebase auth service
 import { projectAuth } from './firebase/config'
 
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 let app
 
 const vuetify = createVuetify({

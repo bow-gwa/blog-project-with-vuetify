@@ -6,7 +6,9 @@
     </div>
 
       <nav v-if="user">
-        <h1>The Amazing Blog</h1>
+        <h1>Social eyes</h1>
+        <p>A window to society</p>
+        
         <div>
           <router-link :to="{ name: 'Home' }">Home</router-link>
         <router-link :to="{ name: 'Create' }">Create Post</router-link>

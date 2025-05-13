@@ -83,36 +83,23 @@ export default {
 };
 </script>-->
 
-<!-- ANOTHER CP VERSION -->
+<!-- ANOTHER CP VERSION vue 3 compatible that works better-->
 <template>
-  <v-app>
-    <v-container class="d-flex justify-center align-center fill-height">
-      <v-card width="400" class="mx-auto mt-5 pa-5">
+  
+    <v-container style="background-color: orange;" class="d-flex justify-center align-center fill-height">
+      <v-card v-if="showLogin"  width="400" class="mx-auto mt-5 pa-5">
         <v-card-title class="text-center">
           <h1 class="text-h4">Login</h1>
         </v-card-title>
-        <v-card-text>
-          <v-form>
-            <v-text-field 
-              label="Username"
-              prepend-inner-icon="mdi-account-circle"
-              variant="outlined"
-              density="comfortable"
-              persistent-placeholder
-            />
-            <v-text-field 
-              :type="showPassword ? 'text' : 'password'"
-              label="Password"
-              prepend-inner-icon="mdi-lock"
-              :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-              @click:append-inner="showPassword = !showPassword"
-              variant="outlined"
-              density="comfortable"
-              persistent-placeholder
-            />
-            <p class="mt-2 text-center">
-              Forgot password? <a href="#" class="text-primary">Click here</a>
-            </p>
+        <v-card-text>          
+          <!-- insert login form here -->
+          <VuetifyLoginForm @login="enterBlog">
+  <v-btn type="submit" variant="tonal" color="primary" block class="mt-3">
+    Login
+  </v-btn>
+</VuetifyLoginForm>
+<!-- below is the way i did it before cp recommedned using slots as seen above -->
+          <!-- <VuetifyLoginForm @login="enterBlog" />
             <v-btn 
               type="submit" 
               variant="tonal" 
@@ -120,29 +107,61 @@ export default {
               block 
               class="mt-3"
             >
-              Submit
-            </v-btn>
-          </v-form>
+              Login
+            </v-btn> -->
+          <!-- </v-form> -->
         </v-card-text>
         <v-divider class="mt-4"></v-divider>
         <p class="mt-2 text-center">Don't have an account?</p>
-        <v-card-actions class="justify-space-between">
-          <v-btn variant="tonal" color="success">Register</v-btn>
-          <v-btn variant="tonal" color="info">Login</v-btn>
+        <v-card-actions class="justify-center">
+          <v-btn @click="showLogin = false" variant="tonal" color="success">Register</v-btn>
+          <!-- <v-btn variant="tonal" color="info">Login</v-btn> -->
+        </v-card-actions>
+      </v-card>
+      <!-- signup form/ register -->
+      <v-card v-else  width="400" class="mx-auto mt-5 pa-5">
+        <v-card-title class="text-center">
+          <h1 class="text-h4">Sign Up</h1>
+        </v-card-title>
+        <v-card-text>
+          <VuetifySignupForm @signup="enterBlog">
+  <v-btn type="submit" variant="tonal" color="primary" block class="mt-3">
+     Submit
+  </v-btn>
+</VuetifySignupForm>
+
+        </v-card-text>
+        <v-divider class="mt-4"></v-divider>
+        <p class="mt-2 text-center">Already have an account?</p>
+        <v-card-actions class="justify-center">
+          <v-btn @click="showLogin = true" variant="tonal" color="success">Sign In</v-btn>
+          <!-- <v-btn variant="tonal" color="info">Login</v-btn> -->
         </v-card-actions>
       </v-card>
     </v-container>
-  </v-app>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import VuetifySignupForm from '@/components/VuetifySignupForm.vue';
+
+ import VuetifyLoginForm from '@/components/VuetifyLoginForm.vue';
 
 export default {
-  name: 'App',
+  components: { VuetifySignupForm, VuetifyLoginForm },
+
+  //name: 'App',
   setup() {
-    const showPassword = ref(false);
-    return { showPassword };
+   // const showPassword = ref(false)
+     const router = useRouter()
+  const showLogin = ref(true)
+
+ const enterBlog = () => {
+  router.push({ name: "Home"})
+}
+
+    return { showLogin, enterBlog };
   }
 };
 </script>

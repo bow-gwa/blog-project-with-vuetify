@@ -1,14 +1,17 @@
-<template>  
+<template> 
+<v-app> 
 <!-- <h1>The Amazing Blog</h1> -->
-<NavBar />
+<!-- <NavBar /> -->
+ <VuetifyNavBar />
   <router-view/>
+</v-app>  
 </template>
 
 <script>
-import NavBar from "./components/NavBar.vue"
-
+//import NavBar from "./components/NavBar.vue"
+import VuetifyNavBar from "./components/VuetifyNavBar.vue"
 export default {
-components: { NavBar }  
+components: { VuetifyNavBar }  
 }
 </script>
 
