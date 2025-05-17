@@ -28,6 +28,11 @@
               density="comfortable"
               persistent-placeholder
             />
+            
+            <!-- Forgot Password Link -->
+        <v-btn text class="forgot-password" @click="forgotPassword">
+            Forgot Password?
+        </v-btn>
             <v-container v-if="error"  class="error">{{ error }}</v-container>
             <!-- SLOT Placeholder where the parent component can inject content -->
     <slot></slot>
@@ -66,6 +71,12 @@ import { ref } from "vue"
 const handleSubmit = async () => {
     console.log("Emitting login event...");
  
+     // Basic validation
+     if (!email.value || !password.value) {
+        error.value = "Email and password are required.";
+        return;
+    }
+    
  try { 
   error.value = "";
   await login(email.value, password.value);
@@ -77,13 +88,29 @@ if (!error.value) {
         console.error("Login failed:", err); 
 };
   }
-      return { email, password, handleSubmit, error, showPassword }
+
+  const forgotPassword = () => {
+            if (!email.value) {
+                error.value = "Please enter your email to reset password.";
+                return;
+            }
+            if (email.value){alert (`Password reset link sent to ${email.value}`)}
+            // You can integrate this with your password reset API
+            console.log(`Password reset link sent to ${email.value}`);
+        }
+
+      return { email, password, handleSubmit, error, showPassword, forgotPassword }
      
   }
 }
   </script>
   
   <style>
+  .forgot-password {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
   .v-icon {
   display: inline-block !important;
 }

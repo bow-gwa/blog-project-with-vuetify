@@ -14,11 +14,18 @@
 <!-- cp version with image -->
 <template>
   <div class="post">
-    <img :src="post.imageUrl" alt="Post Image" class="post-image" />
+    <div v-if="post.imageUrl">
+  <img :src="post.imageUrl" alt="Post image" class="post-image">
+</div>
+
     <div class="post-content">
-      <router-link :to="{ name: 'Details', params: { id: post.id }}">
+      <!-- <router-link :to="{ name: 'Details', params: { id: post.id }}">
         <h3>{{ post.title }}</h3>
-      </router-link>
+      </router-link> -->
+      <router-link :to="'/posts/' + post.id">
+  <h3>{{ post.title }}</h3>
+</router-link>
+
       
       <p>{{ snippet }}</p>
       <span v-for="tag in post.tags" :key="tag">

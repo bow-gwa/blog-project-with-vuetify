@@ -6,7 +6,7 @@
     </div>
 
       <nav v-if="user">
-        <h1>Social eyes</h1>
+        <h1>Socialeyes</h1>
         <p>A window to society</p>
         
         <div>

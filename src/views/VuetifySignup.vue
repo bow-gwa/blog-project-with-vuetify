@@ -87,14 +87,35 @@ export default {
 <template>
   
     <v-container style="background-color: orange;" class="d-flex justify-center align-center fill-height">
-      <v-card v-if="showLogin"  width="400" class="mx-auto mt-5 pa-5">
+
+        <!-- signup form/ register -->
+        <v-card v-if="showSignup"  width="400" class="mx-auto mt-5 pa-5">
+        <v-card-title class="text-center">
+          <h1 class="text-h4">Sign Up</h1>
+        </v-card-title>
+        <v-card-text>
+          <VuetifySignupForm @signup="enterBlog">
+  <v-btn type="submit" variant="tonal" color="primary" block class="mt-3">
+     Submit
+  </v-btn>
+</VuetifySignupForm>
+
+        </v-card-text>
+        <v-divider class="mt-4"></v-divider>
+        <p class="mt-2 text-center">Already have an account?</p>
+        <v-card-actions class="justify-center">
+          <v-btn @click="showSignup = false" variant="tonal" color="success">Sign In</v-btn>
+          <!-- <v-btn variant="tonal" color="info">Login</v-btn> -->
+        </v-card-actions>
+      </v-card>
+      <!-- signup form -->
+      <v-card v-else  width="400" class="mx-auto mt-5 pa-5">
         <v-card-title class="text-center">
           <h1 class="text-h4">Login</h1>
         </v-card-title>
         <v-card-text>          
           <!-- insert login form here -->
-          <VuetifyLoginForm 
-          @login="enterBlog">
+          <VuetifyLoginForm @login="enterBlog">
   <v-btn type="submit" variant="tonal" color="primary" block class="mt-3">
     Login
   </v-btn>
@@ -115,35 +136,11 @@ export default {
         <v-divider class="mt-4"></v-divider>
         <p class="mt-2 text-center">Don't have an account?</p>
         <v-card-actions class="justify-center">
-<!-- Switching to the signup form when Register is clicked -->
-          <v-btn @click="showLogin = false" variant="tonal" color="success">Register</v-btn>
+          <v-btn @click="showSignup = true" variant="tonal" color="success">Register</v-btn>
           <!-- <v-btn variant="tonal" color="info">Login</v-btn> -->
         </v-card-actions>
       </v-card>
-      <!-- signup form/ register -->
-      <v-card v-else  width="400" class="mx-auto mt-5 pa-5">
-        <v-card-title class="text-center">
-          <h1 class="text-h4">Sign Up</h1>
-        </v-card-title>
-        <v-card-text>
-          <VuetifySignupForm 
-          @signup="enterBlog"> <!-- Listening for the signup event -->
-  <v-btn type="submit" variant="tonal" color="primary" block class="mt-3">
-     Submit
-  </v-btn>
-</VuetifySignupForm>
-<!-- Displaying error messages dynamically -->
-<p v-if="error" class="error mt-2">{{ error }}</p>
-        </v-card-text>
-        <v-divider class="mt-4"></v-divider>
-        <p class="mt-2 text-center">Already have an account?</p>
-        <v-card-actions class="justify-center">
-          <!-- <v-btn @click="toggleForm" variant="tonal" color="success">Sign In</v-btn> -->
-
-          <v-btn @click="showLogin = true" variant="tonal" color="success">Sign In</v-btn>
-          <!-- <v-btn variant="tonal" color="info">Login</v-btn> -->
-        </v-card-actions>
-      </v-card>
+    
     </v-container>
 </template>
 
@@ -161,32 +158,13 @@ export default {
   setup() {
    // const showPassword = ref(false)
      const router = useRouter()
-  const showLogin = ref(true)
+  const showSignup = ref(true)
 
-  const enterBlog = () => {
+ const enterBlog = () => {
   router.push({ name: "Home"})
 }
-  // const displayName = ref('');
-  // const email = ref('');
-  //   const password = ref('');
-     const error = ref('');
-   
-  //  below is a cp recommended version of enterBlog that i stopped using because it was not navigating to the homepage upon submit (both login and signup) so i'll stick with the simpler version i had originally
-    // const enterBlog = () => {
-    //   try {
-    //     // Only navigate to Home if no errors exist
-    //     if (!error.value && email.value && password.value) {
-    //       router.push({ name: 'Home' });
-    //      } else {
-    //   error.value = 'Please complete the signup form before proceeding.';
-    // }
-    //   } catch (err) {
-    //     error.value = 'Navigation failed. Please try again.'; // Improved error handling
-    //     console.error('Navigation Error:', err);
-    //   }
-    // };
 
-    return { showLogin,  error, enterBlog };
+    return { showSignup, enterBlog };
   }
 };
 </script>
@@ -230,8 +208,4 @@ export default {
     background: transparent !important;
 }
 
-.error {
-  color: red;
-  font-weight: bold;
-}
 </style>

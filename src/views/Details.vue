@@ -13,6 +13,8 @@
 
 <script>
 import { useRouter } from 'vue-router';
+//import { useRoute } from 'vue-router';
+
 import getPost from '../composables/getPost';
 import Spinner from '@/components/Spinner.vue';
 import { projectFirestore } from '@/firebase/config';
@@ -24,6 +26,8 @@ components: { Spinner },
 setup(props) {
   
   const router = useRouter()
+  console.log("Current route:", router.currentRoute.value);
+  console.log("Route ID param:", router.currentRoute.value.params.id);
 
  const { post, error, load } = getPost(props.id)
 

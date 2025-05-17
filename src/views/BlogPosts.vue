@@ -4,7 +4,7 @@
  <div v-if="error">{{ error }}</div>
  <div v-if="posts.length" class="layout">
  <PostList :posts="posts" /> 
- <TagCloud :posts="posts" />
+ <!-- <TagCloud :posts="posts" /> -->
 </div> 
  <div v-else>
   <Spinner />

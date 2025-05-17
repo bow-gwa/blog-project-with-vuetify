@@ -2,17 +2,17 @@ import { ref } from "vue"
 import { projectFirestore } from "@/firebase/config"
 
 
-const getPosts = () => {
-  const posts = ref([])
+const getSlides = () => {
+  const slides = ref([])
   const error = ref(null)
 
   const load = async () => {
     try {
-      const res = await projectFirestore.collection("posts")
-      .orderBy("createdAt", "desc")
+      const res = await projectFirestore.collection("slides")
+    //   .orderBy("createdAt", "desc")
       .get();
       
-      posts.value = res.docs.map(doc => {
+      slides.value = res.docs.map(doc => {
         //console.log(doc.data())
         return { ...doc.data(), id: doc.id }
       })
@@ -24,20 +24,20 @@ const getPosts = () => {
 }
 
 // Function to delete a post from Firestore
-const deletePost = async (postId) => {
-  try {
-    await projectFirestore.collection("posts").doc(postId).delete();
-    // Update the local state
-    posts.value = posts.value.filter((post) => post.id !== postId);
-  } catch (err) {
-    console.error("Error deleting post:", err);
-  }
-};
+// const deletePost = async (postId) => {
+//   try {
+//     await projectFirestore.collection("posts").doc(postId).delete();
+//     // Update the local state
+//     posts.value = posts.value.filter((post) => post.id !== postId);
+//   } catch (err) {
+//     console.error("Error deleting post:", err);
+//   }
+// };
 
-return { posts, error, load, deletePost }
+return { slides, error, load }
 }
 
-export default getPosts
+export default getSlides
 
 //CP RESPONSE AFTER I SHARED THE ABOVE CODE WHICH WASNT LOGGING THE res TO THE CONSOLE but it eventually worked without any changes to the above code so i guess i dont need the code below (which displays the actual data stored in firebase. i'll keep it just to compare with how he does it)
 // Your Vue function is set up to retrieve posts from a Firestore collection, but there are a couple of key improvements to make it work correctly:

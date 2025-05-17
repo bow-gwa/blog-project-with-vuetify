@@ -7,6 +7,7 @@
       variant="outlined"
       density="comfortable"
       persistent-placeholder
+      :rules="displayNameRules"
     />
     <v-text-field 
       v-model="email"
@@ -15,6 +16,7 @@
       variant="outlined"
       density="comfortable"
       persistent-placeholder
+      :rules=emailRules
     />    
     <v-text-field 
       v-model="password"
@@ -26,6 +28,7 @@
       variant="outlined"
       density="comfortable"
       persistent-placeholder
+      :rules="passwordRules"
     /> 
     <v-container v-if="error" class="error">{{ error }}</v-container>
     <slot></slot>
@@ -47,39 +50,22 @@ export default {
     const showPassword = ref(false);
 
     const handleSubmit = async () => {
-  error.value = ""; // Reset error before validation
-  
-  // ✅ Basic Validation: Check for empty fields
+  // ✅ Basic validation to ensure all required fields are filled
   if (!displayName.value || !email.value || !password.value) {
     error.value = "Username, Email, and Password are required.";
     return;
   }
-
-  // ✅ Improved Validation: Check email format
-  const emailRegex = /.+@.+\..+/;
-  if (!emailRegex.test(email.value)) {
-    error.value = "Invalid email format. Please enter a valid email.";
-    return;
-  }
-
-  // ✅ Improved Validation: Ensure password strength
-  if (password.value.length < 6) {
-    error.value = "Password must be at least 6 characters long.";
-    return;
-  }
-
-  try {
-    await signup(email.value, password.value, displayName.value);
-    
-    if (!error.value) {
-      emit("signup"); // ✅ Emit signup event after successful validation
-    }
-  } catch (err) {
-    error.value = err.message || "Signup failed. Please try again.";
-    console.error("Signup Error:", err);
-  }
-};
-
+      try {
+        error.value = "";
+        await signup(email.value, password.value, displayName.value);
+        if (!error.value) {
+          emit("signup");
+        }
+      } catch (err) {
+        error.value = err.message || "Signup failed. Please try again.";
+        console.error("Signup failed:", err);
+      }
+    };
 
     return { displayName, email, password, showPassword, handleSubmit, error };
   }
